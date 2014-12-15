@@ -6,8 +6,7 @@ Program Arduino with Arduino!
 ##Description
 This library is a completely software solution for remote uploading of compiled sketches into connected Arduinos.
 Dudelib can upload a sketch using standard optiboot bootloader if a normal serial line is used (with DTR line
-to reset Arduino), or using a lightly modified optiboot found (here) could send a sketch through a local RS485 
-network.
+to reset Arduino), or using a lightly modified optiboot you could send a sketch through a local RS485 network.
 
 ##How it works
 The bootloader normally starts after a hw/sw reset. If the reset is sw (eg. watchdog) it jumps direcly to 
@@ -58,27 +57,30 @@ You need a pin for TxEnable input of Rs485 transceiver chip. (for example pin 9)
 Connect the chip as in this example:
 <image>
 For the target board you need also to use a modified bootloader to handle extra pin:
-I used this <> I worked from beginning and avoided me to work also on the bootloader side.
+You could find the special version of optiboot here: [SodaqMoja/optiboot](https://github.com/SodaqMoja/optiboot)
+It worked easily and avoided me to work also on the bootloader side.
 
-Add this parameter to omake.bat present into modified optiloader directory
+* Add this parameter to omake.bat present into modified optiloader directory
+```
+BAUD_RATE=19200 RS485=<TXENABLE PIN>
+```
+* Compile bootloader with txenable pin from commandline:
+```
+omake.bat atmega328
+```
+* Add a new section into boards.txt to point on new firmware:
 ```
 ...
 ```
-Compile bootloader with txenable pin from commandline:
-```
-...
-```
-Add a new section into boards.txt to point on new firmware:
-```
-...
-```
-Reprogram bootloader using another Arduino as ISP or though some ICSP interfaces (you could find instructions
+* Reprogram bootloader using another Arduino as ISP or though some ICSP interfaces (you could find instructions
 on tons of articles starting from Arduino website.)
-...
+<image>
 Now you have a bootloader compatible with RS485. If you want to try directly you cold connect a cheap
 USB/RS485 adapter and upload a sketch pressing reset on target Arduino a moment after end of compilation.
+
 <image>
-Now you cold try the procedure already described to program an Arduino through a RS485 line.
+
+At this point you could use the procedure already described and program an Arduino through a RS485 line.
 
 Cheers. 
 
