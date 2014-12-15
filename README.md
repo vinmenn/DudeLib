@@ -55,7 +55,7 @@ is different).
 If you want to use RS485 you have to do extra steps to make it works:
 You need a pin for TxEnable input of Rs485 transceiver chip. (for example pin 9)
 Connect the chip as in this example:
-<image>
+![Rs485 connections](https://github.com/vinmenn/DudeLib/blob/master/images/Rs485%20connections.png)
 For the target board you need also to use a modified bootloader to handle extra pin:
 You could find the special version of optiboot here: [SodaqMoja/optiboot](https://github.com/SodaqMoja/optiboot)
 It worked easily and avoided me to work also on the bootloader side.
