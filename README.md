@@ -59,7 +59,7 @@ Connect the chip as in this example:
 For the target board you need also to use a modified bootloader to handle extra pin:
 You could find the special version of optiboot here: [SodaqMoja/optiboot](https://github.com/SodaqMoja/optiboot)
 It worked easily and avoided me to work also on the bootloader side.
-
+* Copy the directory into Arduino\hardware\arduino\bootloaders\optiboot_rs485 
 * Add this parameter to omake.bat present into modified optiloader directory
 ```
 BAUD_RATE=19200 RS485=<TXENABLE PIN>
@@ -70,17 +70,32 @@ omake.bat atmega328
 ```
 * Add a new section into boards.txt to point on new firmware:
 ```
-...
+uno2.name=Arduino with RS485 bootloader
+uno2.upload.protocol=arduino
+uno2.upload.maximum_size=30720
+uno2.upload.speed=19200
+uno2.bootloader.low_fuses=0xff
+uno2.bootloader.high_fuses=0xda
+uno2.bootloader.extended_fuses=0x05
+uno2.bootloader.path=optiboot_rs485
+uno2.bootloader.file=optiboot_atmega328.hex
+uno2.bootloader.unlock_bits=0x3F
+uno2.bootloader.lock_bits=0x0F
+uno2.build.mcu=atmega328p
+uno2.build.f_cpu=16000000L
+uno2.build.core=arduino
+uno2.build.variant=standard 
 ```
 * Reprogram bootloader using another Arduino as ISP or though some ICSP interfaces (you could find instructions
 on tons of articles starting from Arduino website.)
-<image>
-Now you have a bootloader compatible with RS485. If you want to try directly you cold connect a cheap
-USB/RS485 adapter and upload a sketch pressing reset on target Arduino a moment after end of compilation.
+See for example [here](http://arduino.cc/en/Guide/ArduinoISP)
 
-<image>
-
+Now you have a bootloader compatible with RS485. 
 At this point you could use the procedure already described and program an Arduino through a RS485 line.
+
+If you want to try directly to program directly from arduino ide using a rs485 line you cold also connect a cheap
+USB/RS485 adapter (like [these](http://www.ebay.co.uk/bhp/usb-to-rs485-converter)) and upload a sketch pressing reset on target Arduino a moment after end of compilation. This is a bit difficult but you could have success after few tries. 
+
 
 Cheers. 
 
