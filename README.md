@@ -1,6 +1,6 @@
 # DudeLib
 # Program Arduino with Arduino!
----
+
 ## Description
 This library is a completely software solution for remote uploading of compiled sketches into connected Arduinos.
 Dudelib can upload a sketch using standard optiboot bootloader if a normal serial line is used (with DTR line
